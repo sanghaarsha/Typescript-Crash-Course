@@ -1,7 +1,7 @@
 // to generate this file run 'tsc --init'
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "module": "commonjs",
         "outDir": "./dist",
         "rootDir": "./src",

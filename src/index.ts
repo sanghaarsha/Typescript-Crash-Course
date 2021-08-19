@@ -110,19 +110,69 @@ const sub: MathInterface = (x: number, y: number): number => x - y;
 
 // * Classes
 class Person {
+    // ? Access Modifiers
+    //  these properties of classes (id,name) are public by default
+    // they can be changed to -> private or protected
+    private id: number; // private properties can be accessed only in class
+    protected name: string; // private properties can be accessed in the class and extended class
+
     constructor(id: number, name: string) {
         this.id = id;
         this.name = name;
     }
 
-    id: number;
-    name: string;
+    // methods
+    register() {
+        return `${this.name} is now registered!`;
+    }
+}
+const brad = new Person(1, "Brad Jones");
+const mike = new Person(2, "Mike Mayor");
+console.log(brad, mike);
+console.log(brad.register());
+
+// ? Interface with classes
+interface ViewerInterface {
+    viewerId: number;
+    viewerName: string;
+    show(): string;
 }
 
-const brad = new Person(1, "brad");
-const mike = new Person(2, "mike");
-console.log(brad, mike);
+class Viewer implements ViewerInterface {
+    viewerId: number;
+    viewerName: string;
 
-// ? Access Modifiers
-//  above properties of classes (id,name) are public by default
-// they can be change to -> public, private or protected
+    constructor(id: number, name: string) {
+        this.viewerId = id;
+        this.viewerName = name;
+    }
+
+    show() {
+        return `Viewer details : ID: ${this.viewerId}, NAME: ${this.viewerName}`;
+    }
+}
+
+const markova = new Viewer(54545, "John Markova");
+console.log(markova.show());
+
+// ? Extending Classes
+class Subscribers extends Viewer {
+    position: string;
+
+    constructor(viewerId: number, viewerName: string, position: string) {
+        // extending from parent class 'Viewer'
+        super(viewerId, viewerName);
+        this.position = position;
+    }
+}
+
+const subc = new Subscribers(5498, "Shawn Michael", "Backend Dev");
+console.log(subc.show());
+
+// * Generics
+// acts as placeholder for a type
+function getArray<T>(items: T[]): T[] {
+    return new Array().concat(items);
+}
+let numArray = getArray<number>([1, 2, 3, 4]);
+let strArray = getArray<string>(["a", "b", "c", "d"]);
